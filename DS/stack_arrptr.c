@@ -34,15 +34,16 @@ int pop(stack *st)
 	return -1;
     }
     num = st -> arr[st-> top];
+    st -> top--;
     return num;
 }
 void display(stack *st)
 {
     int i;
     printf("Elements of Stack: \n");
-    for(i=st->top;i>=0;i++)
+    for(i=st->top;i>=0;i--)
     {
-	printf("%d ",st -> arr[i]);
+	printf("%d\n",st -> arr[i]);
     }
     printf("\n");
 
@@ -87,5 +88,6 @@ int main()
 		printf("Enter a valid option\n");
 	    }
     }while(choice != 4);
-	}
+	
+}
     
