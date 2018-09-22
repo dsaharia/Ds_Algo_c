@@ -8,8 +8,10 @@
   * Stacks -
     * Using Arrays.
     * Using Pointers.
-    * Using Linked Lists.
+    * Using Linked Lists (To be modified using Reviews).
+    * As a Parentheses Checker.
+  * Queue -
+    * Using Arrays.
   
-  
-* Algorithms -
+## Algorithms -
  * Binary Search (Iterative).
