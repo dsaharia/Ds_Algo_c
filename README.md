@@ -12,6 +12,7 @@
     * As a Parentheses Checker.
   * Queue -
     * Using Arrays.
+  * Binary Search tree.
   
 ## Algorithms -
  * Binary Search (Iterative).
