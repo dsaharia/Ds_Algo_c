@@ -16,3 +16,8 @@
   
 ## Algorithms -
  * Binary Search (Iterative).
+ * Binary Search (Recursive).
+ * Insertion Sort.
+ * Selection Sort.
+ * Bubble Sort.
+ * Merge Sort.
