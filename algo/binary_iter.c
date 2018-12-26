@@ -1,48 +1,52 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-int bin_search(int*,int,int);
-main()
+int binary_search(int arr[], int size, int key)
 {
-    int a[] = {2,5,7,8,15,19,24,26,66};
-    int size = 9,key,index=0,i=0;
-    printf("--Binary Search Iterative--\n");
-    printf("Array is:\n");
-    for(i=0;i<size;i++)
+    int low = 0, high = size-1, mid;
+    //mid = low + (high - low)/2;
+
+    while (low <= high)
     {
-	printf("%d  ",a[i]);
-    }
-    printf("\n");
-    printf("Enter the key to search:\n");
-    scanf("%d", &key);
+	mid = low + (high - low)/2;
 
-    index = bin_search(a,size,key);
-    if(index != -1)
-	printf("Elememt %d is at index %d\n",key,index);
-    else if (index == -1)
-	printf("Element Not Found!\n");
-
-}
-
-int bin_search(int a[],int size,int key)
-{
-    int l=0,h=size,mid=0;
-    while(l <= h)
-    {
-	mid = l + (h-l)/2; //To avoid overflow
-	
-	if(key == a[mid])
+	if (arr[mid] == key)
 	{
+	    printf("Found!\n");
 	    return mid;
 	}
-	else if (key < a[mid])
+	else if (arr[mid] >= key)
 	{
-	    h = mid -1;
+	    high = mid - 1;
 	}
-	else if (key > a[mid])
-	{
-	    l = mid + 1;
-	}
+	else
+	    low = mid +1;
+    
     }
     return -1;
+}
+
+int main()
+{
+    int *arr,size,key,index,i;
+
+    printf("Enter the number of elements\n");
+    scanf("%d", &size);
+    arr = (int *) malloc (sizeof(int) * size);
+
+    printf("Enter the elements in sorted order\n");
+    for (i=0;i<size;i++)
+    {
+	scanf("%d", &arr[i]);
+    }
+    printf("Enter the Key to search\n");
+    scanf("%d", &key);
+
+    index = binary_search(arr,size,key);
+    if (index == -1)
+	printf("Element not found!\n");
+    else
+	printf("Found at: %d\n", index);
+
 
 }
