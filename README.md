@@ -13,11 +13,13 @@
   * Queue -
     * Using Arrays.
   * Binary Search tree.
-  
+
 ## Algorithms -
  * Binary Search (Iterative).
  * Binary Search (Recursive).
+ * Linear Search.
  * Insertion Sort.
  * Selection Sort.
  * Bubble Sort.
  * Merge Sort.
+ * Quick Sort.
