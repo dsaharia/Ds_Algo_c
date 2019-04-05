@@ -19,7 +19,8 @@ typedef struct Heap {
 	int vertex;
 	int score;
 }Heap;
-
+void heapify(Heap *);
+void swap(Heap *, Heap *);
 Graph* initialize_graph(FILE *fnodes, Graph *graph) {
     int total_vertex, source;
 	fscanf(fnodes, "%d,%d", &total_vertex, &source);
@@ -97,7 +98,28 @@ void create_heap(Graph *graph, int *distance_array, Heap *heap) {
 	{
 		printf("Vertex and Weight: %d %d\n", heap[i].vertex, heap[i].score);
 	}
-	printf("\n");
+	//printf("\n");
+	heapify(heap);
+}
+
+void heapify(Heap *heap) {
+	int i=3;
+	while(heap[i].score < heap[(i-1)/2].score ) {
+		swap(&heap[i], &heap[(i-1)/2]);
+		i--;
+	}
+	for (int i = 0; i < 5 - 1; ++i)
+	{
+		printf("NEW Vertex and Weight: %d %d\n", heap[i].vertex, heap[i].score);
+	}
+
+}
+
+void swap(Heap *a, Heap *b) {
+	Heap temp;
+	temp = *a;
+	*a = *b;
+	*b = temp;
 }
 
 int main() {
