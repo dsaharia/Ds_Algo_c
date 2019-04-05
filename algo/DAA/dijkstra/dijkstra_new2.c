@@ -15,6 +15,11 @@ typedef struct Graph {
 
 }Graph;
 
+typedef struct Heap {
+	int vertex;
+	int score;
+}Heap;
+
 Graph* initialize_graph(FILE *fnodes, Graph *graph) {
     int total_vertex, source;
 	fscanf(fnodes, "%d,%d", &total_vertex, &source);
@@ -58,7 +63,7 @@ void print(Graph *graph) {
 	for (int i = 0; i < graph -> no_vertices; ++i)
 	{
 		trav = &(graph -> list[i]);
-		printf("V no. : %d ", graph -> list[i].vertex_number);
+		printf("Vertex no. : %d ", graph -> list[i].vertex_number);
 		while (trav -> next != NULL) {
 			printf("DEST : %d \n", trav -> next -> vertex_number);
 			trav = trav -> next;
@@ -67,19 +72,59 @@ void print(Graph *graph) {
 	printf("\n");
 }
 
+void create_heap(Graph *graph, int *distance_array, Heap *heap) {
+	int eff_nodes = graph -> no_vertices,k=0, j=1; // number of nodes except source
+	Node *trav = &(graph -> list[graph -> source - 1]);
+	heap = (Heap *)malloc((sizeof(Heap) * (eff_nodes)) - 1);
+	for (int i = 0; i < eff_nodes-1; ++i)
+	{
+		heap[i].vertex = j;
+		heap[i].score = (graph -> total_weight) + 15;
+		j++;
+	}
+        while (trav -> next != NULL) {
+        	for (int i = 0; i < eff_nodes - 1; ++i)
+        	{
+	        	if ((trav -> next -> vertex_number ) == heap[i].vertex) {
+	            heap[i].vertex = trav -> next -> vertex_number;
+	            heap[i].score = trav -> next -> weight;
+        	}
+        }
+        	trav = trav -> next;
+        }
+        printf("--INITIAL HEAP--\n");
+	for (int i = 0; i < eff_nodes - 1; ++i)
+	{
+		printf("Vertex and Weight: %d %d\n", heap[i].vertex, heap[i].score);
+	}
+	printf("\n");
+}
 
 int main() {
 	FILE *fnodes = fopen("nodes.txt", "r");
     Graph *graph;
+    Heap *heap;
+    graph = (Graph *)malloc(sizeof(Graph));
+    heap = (Heap *)malloc(sizeof(Heap));
 	graph = initialize_graph(fnodes, graph);
-	printf("%d %d %p \n", graph->no_vertices, graph->source, graph->list);
+	printf("Details of graph, Nodes and Source: %d %d\n", graph->no_vertices, graph->source);
+	printf("--Adjacency List--(Started from Vertex number 0)\n");
 	graph -> list = adjacency_list(fnodes, graph);
-	printf("WT: %d\n", graph -> total_weight);
+	printf("Total Weight: %d\n", graph -> total_weight);
 	print(graph);
-	int *distance_array;
-    distance_array = (int *)malloc(sizeof(int));
+	int *distance_array; //distance array
+    distance_array = (int *)malloc(sizeof(int) * (graph -> no_vertices));
+    if (distance_array == NULL) {
+    	printf("NO MEMORY\n");
+    }
     for (int i = 0; i < (graph -> no_vertices); i++)
     {
     	distance_array[i] = (graph -> total_weight) + 15;
     }
+    distance_array[(graph -> source) - 1] = 0; //Initial distance is 0 for source.
+    // for (int i = 0; i < (graph -> no_vertices); i++)
+    // {
+    // 	printf("%d ", distance_array[i]);
+    // }
+    create_heap(graph, distance_array, heap);
 }
