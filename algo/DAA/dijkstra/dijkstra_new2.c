@@ -64,13 +64,13 @@ void print(Graph *graph) {
 	for (int i = 0; i < graph -> no_vertices; ++i)
 	{
 		trav = &(graph -> list[i]);
-		printf("Vertex no. : %d ", graph -> list[i].vertex_number);
+		printf("(%d) -> ", graph -> list[i].vertex_number+1);
 		while (trav -> next != NULL) {
-			printf("DEST : %d \n", trav -> next -> vertex_number);
+			printf(" %d ->", trav -> next -> vertex_number);
 			trav = trav -> next;
 		}
+		printf("\n");
 	}
-	printf("\n");
 }
 
 void create_heap(Graph *graph, int *distance_array, Heap *heap) {
@@ -130,7 +130,7 @@ int main() {
     heap = (Heap *)malloc(sizeof(Heap));
 	graph = initialize_graph(fnodes, graph);
 	printf("Details of graph, Nodes and Source: %d %d\n", graph->no_vertices, graph->source);
-	printf("--Adjacency List--(Started from Vertex number 0)\n");
+	printf("--Adjacency List--\n");
 	graph -> list = adjacency_list(fnodes, graph);
 	printf("Total Weight: %d\n", graph -> total_weight);
 	print(graph);
