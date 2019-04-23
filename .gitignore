@@ -5,6 +5,7 @@
 *.ko
 *.obj
 *.elf
+.ipynb_checkpoints
 
 # Linker output
 *.ilk
