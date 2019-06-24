@@ -9,7 +9,8 @@
     * Using Arrays.
     * Using Pointers.
     * Using Linked Lists (To be modified using Reviews).
-    * As a Parentheses Checker.
+    * As a Parentheses Checker.(*using STL*).
+    * Infix to Postfix converter.
   * Queue -
     * Using Arrays.
   * Binary Search tree.
