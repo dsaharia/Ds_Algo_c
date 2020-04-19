@@ -1,10 +1,12 @@
 #include <iostream>
-#include <list>
+#include <vector>
+#include <queue>
+
 using namespace std;
 
 class Graph{
     int v; // vertex
-    list<int> *adj; // adjacency list
+    vector<vector<int>> adj; // adjacency list
     
     public:
         Graph(int v);
@@ -15,7 +17,7 @@ class Graph{
 
 Graph::Graph(int v){
     this -> v = v;
-    adj = new list<int>[this -> v];
+    adj.resize(this -> v);
 }
 
 void Graph::add_edge(int src, int dest){
@@ -23,6 +25,32 @@ void Graph::add_edge(int src, int dest){
 }
 
 void Graph::breadth_first_search(int src){
+    queue<int> q;
+    bool visited[this -> v];
+    int distance[this -> v];
+    int to_explore;
+    q.push(src);
+    visited[src] = true; // visited the source
+    distance[src] = 0;
+    while(!q.empty()){
+	to_explore = q.front();
+	//cout << to_explore << "\n";
+	q.pop();
+	for(int i:adj[to_explore]){
+	    if(visited[i] == false) {
+		cout << i << "\n";
+		q.push(i);
+		visited[i] = true;
+		distance[i] = distance[to_explore] + 1;
+	    }
+	}
+
+
+    }
+
+
+}
+/*void Graph::breadth_first_search(int src){
     bool visited[this -> v]; // for removing duplicate visits to a node
     list<int> queue; // for performing the BFS
     for (int i = 0; i < v; ++i){
@@ -44,23 +72,34 @@ void Graph::breadth_first_search(int src){
     }
     cout << endl;
 
+}*/
+
+
+void Graph::print(){
+    for(auto i:adj){
+	for(auto j: i){
+	    cout << j << " ";
+	}
+	cout << "\n";
+    }
 }
 
-// void Graph::print(){
-//     for (int i = 0; i < v; ++i){
-        
-//     }
-// }
-
 int main(){
-    Graph graph(4);
+    Graph graph(6);
+    graph.add_edge(0, 3);
     graph.add_edge(0, 1);
-    graph.add_edge(0, 2);
+    graph.add_edge(1, 0);
+    graph.add_edge(1, 4);
     graph.add_edge(1, 2);
-    graph.add_edge(2, 0);
-    graph.add_edge(2, 3);
-    graph.add_edge(3, 3);
+    graph.add_edge(2, 1);
+    graph.add_edge(2, 5);
+    graph.add_edge(3, 0);
+    graph.add_edge(4, 1);
+    graph.add_edge(4, 5);
+    graph.add_edge(5, 2);
+    graph.add_edge(5, 4);
 
-    cout << "Running BFS at 2" << endl;
-    graph.breadth_first_search(2);
+    cout << "Running BFS at Node 0" << endl;
+    graph.breadth_first_search(0);
+    //graph.print();
 }
