@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <queue>
+#include <algorithm>
 
 using namespace std;
 
@@ -27,6 +28,7 @@ void Graph::add_edge(int src, int dest){
 void Graph::breadth_first_search(int src){
     queue<int> q;
     bool visited[this -> v];
+    fill(visited, visited + (this -> v), false); // fill the array with false
     int distance[this -> v];
     int to_explore;
     q.push(src);
@@ -34,11 +36,10 @@ void Graph::breadth_first_search(int src){
     distance[src] = 0;
     while(!q.empty()){
 	to_explore = q.front();
-	//cout << to_explore << "\n";
+	cout << to_explore << " ";
 	q.pop();
 	for(int i:adj[to_explore]){
-	    if(visited[i] == false) {
-		cout << i << "\n";
+	    if(!visited[i]) {
 		q.push(i);
 		visited[i] = true;
 		distance[i] = distance[to_explore] + 1;
@@ -47,9 +48,15 @@ void Graph::breadth_first_search(int src){
 
 
     }
-
+    cout << "\n\n";
+    cout << "Node Distance from " << src << "\n";
+    for(int i=0; i < this -> v; i++){
+	cout << i << "    "<< distance[i] << "\n";
+    }
+    cout << "\n";
 
 }
+
 /*void Graph::breadth_first_search(int src){
     bool visited[this -> v]; // for removing duplicate visits to a node
     list<int> queue; // for performing the BFS
@@ -98,7 +105,14 @@ int main(){
     graph.add_edge(4, 5);
     graph.add_edge(5, 2);
     graph.add_edge(5, 4);
-
+    /*
+    Graph g(4); 
+    g.add_edge(0, 1); 
+    g.add_edge(0, 2); 
+    g.add_edge(1, 2); 
+    g.add_edge(2, 0); 
+    g.add_edge(2, 3); 
+    g.add_edge(3, 3);*/
     cout << "Running BFS at Node 0" << endl;
     graph.breadth_first_search(0);
     //graph.print();
